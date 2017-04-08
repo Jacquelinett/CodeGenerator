@@ -14,6 +14,30 @@
     </body>
     
     <script>
-        document.getElementById("demo").innerHTML = "Paragraph changed!";
+        var classCounter = 1;
+        var funcCounter = 1;
+        var varCounter = 1;
+        
+        function addClass() {
+        	
+        	document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>Class " + 
+        	classCounter + "</div>";
+        	
+        	classCounter++;
+        }
+        
+        function addFunction() {
+        	document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter + "\" class='Function'>Function " + 
+        	funcCounter + "</div>";
+        	
+        	funcCounter++;
+        }
+        
+        function addVariable() {
+        	document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter + "\" class='Variable'>Variable " + 
+        	varCounter + "</div>";
+        	
+        	varCounter++;
+        }
     </script>
 </html>
