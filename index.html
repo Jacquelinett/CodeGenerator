@@ -3,24 +3,46 @@
 <head>
     <title> Code Generation </title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  
+  <script type="text/javascript" src="src/class_.js"></script>
+  <script type="text/javascript" src="src/function_.js"></script>
+  <script type="text/javascript" src="src/variable_.js"></script>
 </head>
-
-<body>
-    <p>This is a very simple HTML document</p>
-    <p>It only has two paragraphs</p>
-
-    <div id="demo">
-
-    </div>
-</body>
-
-<script type="text/javascript" src="src/class_.js"></script>
-<script type="text/javascript" src="src/function_.js"></script>
-<script type="text/javascript" src="src/variable_.js"></script>
 
 <script>
     //var obj1 = new function_("asdasdsd","comment");
     //console.log(obj1.getName());
-</script>
+    <nav>
+        <ul>
+            <p onclick="addClass()">Class</p>
+            <p onclick="addFunction()">Function</p>
+            <p onclick="addVariable()">Variable</p>
+        </ul>
+    </nav>
 
+
+    <div id="demo">
+    </div>
+</body>
+<script>
+    var classCounter = 0;
+    var funcCounter = 0;
+    var varCounter = 0;
+
+    function addClass() {
+        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>Class " + classCounter + "</div>";
+        classCounter++;
+    }
+
+    function addFunction() {
+        document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter + "\" class='Function'>Function " + funcCounter + "</div>";
+        funcCounter++;
+    }
+
+    function addVariable() {
+        document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter + "\" class='Variable'>Variable " + varCounter + "</div>";
+        varCounter++;
+    }
+
+</script>
 </html>
