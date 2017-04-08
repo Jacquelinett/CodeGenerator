@@ -3,9 +3,15 @@
 <head>
     <title> Code Generation </title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  
+  <script type="text/javascript" src="src/class_.js"></script>
+  <script type="text/javascript" src="src/function_.js"></script>
+  <script type="text/javascript" src="src/variable_.js"></script>
 </head>
 
-<body>
+<script>
+    //var obj1 = new function_("asdasdsd","comment");
+    //console.log(obj1.getName());
     <nav>
         <ul>
             <p onclick="addClass()">Class</p>
@@ -37,6 +43,6 @@
         document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter + "\" class='Variable'>Variable " + varCounter + "</div>";
         varCounter++;
     }
-</script>
 
+</script>
 </html>
