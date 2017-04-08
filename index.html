@@ -31,6 +31,10 @@
     var funcCounter = 0;
     var varCounter = 0;
 
+    var classList = [];
+    var functionList = [];
+    var variableList = [];
+
     function addClass() {
         document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>Class " +
             classCounter + "</div>";
@@ -47,6 +51,43 @@
         document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter +
             "\" class='Variable'>Variable " + varCounter + "</div>";
         varCounter++;
+    }
+
+    var testClass = new Class();
+    classList.push(testClass);
+    testClass.setName("TestingClass");
+    var testVariable1 = new Variable();
+    var testVariable2 = new Variable();
+    var testFunction1 = new Function();
+    testVariable1.setName("Name");
+    testVariable2.setName("Value");
+    testFunction1.setName("doStuff");
+    testClass.variableList.push(testVariable1);
+    testClass.variableList.push(testVariable2);
+    testClass.functionList.push(testFunction1);
+
+    function generateCode() {
+        classList.forEach(function(classObj) {
+            console.log("class " + classObj.getName() + " {");
+            console.log(" ");
+            classObj.variableList.forEach(function(varObj) {
+                console.log("\t get" + varObj.getName() + "() {");
+                console.log("\t\t return this." + varObj.getName() + ";");
+                console.log("\t }");
+                console.log(" ");
+                console.log("\t set" + varObj.getName() + "(value) {");
+                console.log("\t\t this." + varObj.getName() + " = value;");
+                console.log("\t }");
+                console.log(" ");
+            }, this);
+            classObj.functionList.forEach(function(funcObj) {
+                console.log("\t " + funcObj.getName() + "() {");
+                console.log(" ");
+                console.log("\t }");
+                console.log(" ");
+            }, this);
+            console.log("}");
+        }, this);
     }
 </script>
 
