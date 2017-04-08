@@ -3,17 +3,25 @@
         <title> Code Generation </title>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
-    
+
     <body>
-        <p>This is a very simple HTML document</p>
-        <p>It only has two paragraphs</p>
+        <nav>
+            <ul>
+	    <p onclick="addClass()">Class</p>
+        <p onclick="addFunction()">Function</p>
+        <p onclick="addVariable()">Variable</p>
+	       </ul>
+        </nav>
+
 
         <div id="demo">
-            
         </div>
     </body>
-    
     <script>
         document.getElementById("demo").innerHTML = "Paragraph changed!";
     </script>
 </html>
+
+
+
+
