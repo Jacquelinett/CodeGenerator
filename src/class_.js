@@ -2,8 +2,8 @@ class Class {
     constructor(x, y) {
         this.name = x;
         this.comment = y;
-        this.functionList = {};
-        this.variableList = {};
+        this.functionList = [];
+        this.variableList = [];
     }
     getName() {
         return this.name;
