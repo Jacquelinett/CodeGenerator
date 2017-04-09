@@ -9,7 +9,9 @@
 </head>
 
 <body>
+  
     <nav>
+        <icon><img src = "res/icon.png" style="width:30px;height:30px;padding-x:10px"></icon>
         <ul>
             <p onclick="addClass()"> Class </p>
             <p onclick="addFunction()"> Function </p>
@@ -22,7 +24,7 @@
     <div id="demo">
     </div>
 </body>
-
+//bg div
 <script type="text/javascript" src="src/interact-setting.js"></script>
 
 <script type="text/javascript">
@@ -43,7 +45,7 @@
         /*document.getElementById("demo").innerHTML += 
             "<div id=\"class-data-" + classCounter + "\" class='Class'>  <div id=\"class-name-" + classCounter + "\" ondoubleclick=\"updateName(\"class-name-" + classCounter + "\")\"> Class " + classCounter + "</div><span id=class-name-" + classCounter + "></span></div>"; */
         document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>" +
-            "<span id=\"class-name-" + classCounter + "\">Class" + classCounter + "</span></div>";
+            "<span id=\"class-name-" + classCounter + "\">Class " + classCounter + "</span></div>";
         var nClass = new Class();
         nClass.setName("Class" + classCounter);
         classList.push(nClass);
@@ -52,7 +54,7 @@
 
     function addFunction() {
         document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter +
-            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function" +
+            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function " +
             funcCounter + "</span></div>";
         var nFunction = new Function();
         nFunction.setName("Function" + funcCounter);
@@ -62,7 +64,7 @@
 
     function addVariable() {
         document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter +
-            "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\">Variable" + varCounter +
+            "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\">Variable " + varCounter +
             "</span></div>";
         var nVariable = new Variable();
         nVariable.setName("Variable" + varCounter);
@@ -95,7 +97,7 @@
     }
 
     function updateName(id) {
-        var name = prompt("Please enter name", "Name...");
+        var name = prompt("Please enter name", "");
 
         if (name != null) {
             var tagIndex = id.replace( /^\D+/g, '');;
