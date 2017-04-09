@@ -14,6 +14,7 @@
             <p onclick="addClass()"> Class </p>
             <p onclick="addFunction()"> Function </p>
             <p onclick="addVariable()"> Variable </p>
+            <p onclick="generateCode()"> Generate Code </p>
         </ul>
     </nav>
 
@@ -28,71 +29,63 @@
     //var obj1 = new function_("asdasdsd","comment");
     //console.log(obj1.getName());
 
-    var classCounter = 1;
-    var funcCounter = 1;
-    var varCounter = 1;
+    var classCounter = 0;
+    var funcCounter = 0;
+    var varCounter = 0;
 
     var classList = [];
     var functionList = [];
     var variableList = [];
 
+    //var objList = [];
+
     function addClass() {
         /*document.getElementById("demo").innerHTML += 
             "<div id=\"class-data-" + classCounter + "\" class='Class'>  <div id=\"class-name-" + classCounter + "\" ondoubleclick=\"updateName(\"class-name-" + classCounter + "\")\"> Class " + classCounter + "</div><span id=class-name-" + classCounter + "></span></div>"; */
-        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>" + "<span id=\"class-name-" + classCounter + "\" >Class " + classCounter + "</span></div>";
-        var obj = document.getElementById("class-name-" + classCounter);
-        obj.addEventListener("dblclick", function() {
-            updateName("class-name-" + (classCounter - 1));
-        });
+        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>" +
+            "<span id=\"class-name-" + classCounter + "\">Class" + classCounter + "</span></div>";
+        var nClass = new Class();
+        nClass.setName("Class" + classCounter);
+        classList.push(nClass);
         classCounter++;
     }
+
     function addFunction() {
-         document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter + "\" class='Function dropable'>" + "<span id=\"function-name-" + classCounter + "\" >Function " + funcCounter + "</span></div>";
-        var obj = document.getElementById("function-name-" + funcCounter);
-        obj.addEventListener("dblclick", function() {
-            updateName("function-name-" + (funcCounter - 1));
-        });
+        document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter +
+            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function" +
+            funcCounter + "</span></div>";
+        var nFunction = new Function();
+        nFunction.setName("Function" + funcCounter);
+        functionList.push(nFunction);
         funcCounter++;
     }
 
     function addVariable() {
-        document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter + "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\" >Variable " + varCounter + "</span></div>";
-        var obj = document.getElementById("variable-name-" + varCounter);
-        obj.addEventListener("dblclick", function() {
-            updateName("variable-name-" + (varCounter - 1));
-        });
+        document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter +
+            "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\">Variable" + varCounter +
+            "</span></div>";
+        var nVariable = new Variable();
+        nVariable.setName("Variable" + varCounter);
+        variableList.push(nVariable);
         varCounter++;
     }
 
-    var testClass = new Class();
-    classList.push(testClass);
-    testClass.setName("TestingClass");
-    var testVariable1 = new Variable();
-    var testVariable2 = new Variable();
-    var testFunction1 = new Function();
-    testVariable1.setName("Name");
-    testVariable2.setName("Value");
-    testFunction1.setName("doStuff");
-    testClass.variableList.push(testVariable1);
-    testClass.variableList.push(testVariable2);
-    testClass.functionList.push(testFunction1);
-
     function generateCode() {
-        classList.forEach(function(classObj) {
-            console.log("class " + classObj.getName() + " {");
+        classList.forEach(function (classObj) {
+            console.log("class " + classObj.getName().replace(/ /g, "_") + " {");
             console.log(" ");
-            classObj.variableList.forEach(function(varObj) {
-                console.log("\t get" + varObj.getName() + "() {");
-                console.log("\t\t return this." + varObj.getName() + ";");
+            classObj.variableList.forEach(function (varObj) {
+                console.log("\t get" + varObj.getName().replace(/ /g, "_") + "() {");
+                console.log("\t\t return this." + varObj.getName().replace(/ /g, "_") + ";");
                 console.log("\t }");
                 console.log(" ");
-                console.log("\t set" + varObj.getName() + "(value) {");
-                console.log("\t\t this." + varObj.getName() + " = value;");
+                console.log("\t set" + varObj.getName().replace(/ /g, "_") + "(value) {");
+                console.log("\t\t this." + varObj.getName().replace(/ /g, "_") + " = value;");
                 console.log("\t }");
                 console.log(" ");
             }, this);
-            classObj.functionList.forEach(function(funcObj) {
-                console.log("\t " + funcObj.getName() + "() {");
+            classObj.functionList.forEach(function (funcObj) {
+                console.log("\t " + funcObj.getName().replace(/ /g, "_") + "() {");
                 console.log(" ");
                 console.log("\t }");
                 console.log(" ");
@@ -100,16 +93,22 @@
             console.log("}");
         }, this);
     }
-    
+
     function updateName(id) {
-        console.log("this is being called");
-        console.log(id);
         var name = prompt("Please enter name", "Name...");
-    
+
         if (name != null) {
+            var tagIndex = id.replace( /^\D+/g, '');;
+            var tag;
+            if (id.indexOf("function") > -1)
+                tag = functionList[tagIndex];
+            else if (id.indexOf("variable") > -1)
+                tag = variableList[tagIndex];
+            else if (id.indexOf("class") > -1)
+                tag = classList[tagIndex];
+
             document.getElementById(id).innerHTML = name;
+            tag.setName(name);
         }
     }
-   
 </script>
-
