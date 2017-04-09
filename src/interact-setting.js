@@ -1,3 +1,7 @@
+function hasClass(element, cls) {
+    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+}
+
 function dragMoveListener(event) {
     var target = event.target,
         // keep the dragged position in the data-x/data-y attributes
@@ -54,7 +58,7 @@ interact('.Class')
         // only accept elements matching this CSS selector
         accept: '.dropable',
         // Require a 75% element overlap for a drop to be possible
-        overlap: 0.75,
+        overlap: 0.95,
 
         // listen for drop related events:
 
@@ -77,7 +81,7 @@ interact('.Class')
             event.target.classList.remove('can-drop');
             //event.relatedTarget.textContent = 'Dragged out';
 
-            var tagIndex = event.relatedTarget.id.replace( /^\D+/g, '');;
+            var tagIndex = event.relatedTarget.id.replace(/^\D+/g, '');;
             var tag;
             if (event.relatedTarget.id.indexOf("function") > -1)
                 tag = functionList[tagIndex];
@@ -89,19 +93,27 @@ interact('.Class')
                 tag.getParent().removeFromClass(tag);
                 tag.setParent(null);
             }
+
+            var boxElement = document.getElementById(event.relatedTarget.id);
+            boxElement.parentElement.removeChild(boxElement);
+            document.getElementById("demo").appendChild(boxElement);
         },
         ondrop: function (event) {
             //event.relatedTarget.textContent = 'Dropped';
-            var tagIndex = event.relatedTarget.id.replace( /^\D+/g, '');;
+            var tagIndex = event.relatedTarget.id.replace(/^\D+/g, '');;
             var tag;
             if (event.relatedTarget.id.indexOf("function") > -1)
                 tag = functionList[tagIndex];
             else if (event.relatedTarget.id.indexOf("variable") > -1)
                 tag = variableList[tagIndex];
 
-            console.log(tag);
-            tag.setParent(classList[event.target.id.replace( /^\D+/g, '')]);
-            //console.log(event.relatedTarget.tag);
+            tag.setParent(classList[event.target.id.replace(/^\D+/g, '')]);
+            var boxElement = document.getElementById(event.relatedTarget.id);
+            boxElement.parentElement.removeChild(boxElement);
+            document.getElementById(event.target.id).appendChild(boxElement);
+
+            event.relatedTarget.style.left = "10px";
+            event.relatedTarget.style.top = "10px";
         },
         ondropdeactivate: function (event) {
             // remove active dropzone feedback
@@ -112,24 +124,17 @@ interact('.Class')
     .on('doubletap', function (event) {
         if (event.target.tagName.toLowerCase() == 'span')
             updateName(event.target.id);
+    })
+    .on('down', function(event) {
+        event.target.parentElement.appendChild(event.target);
     });
 
 interact('.Function')
     .preventDefault(['auto'])
     .draggable({
         // enable inertial throwing
-        inertia: true,
-        // keep the element within the area of it's parent
-        restrict: {
-            restriction: "parent",
-            endOnly: true,
-            elementRect: {
-                top: 0,
-                left: 0,
-                bottom: 1,
-                right: 1
-            }
-        },
+        inertia: false,
+
         // enable autoScroll
         autoScroll: true,
 
@@ -149,24 +154,16 @@ interact('.Function')
     .on('doubletap', function (event) {
         if (event.target.tagName.toLowerCase() == 'span')
             updateName(event.target.id);
+    })
+    .on('down', function(event) {
+        event.target.parentElement.appendChild(event.target);
     });
 
 interact('.Variable')
     .preventDefault(['auto'])
     .draggable({
         // enable inertial throwing
-        inertia: true,
-        // keep the element within the area of it's parent
-        restrict: {
-            restriction: "parent",
-            endOnly: true,
-            elementRect: {
-                top: 0,
-                left: 0,
-                bottom: 1,
-                right: 1
-            }
-        },
+        inertia: false,
         // enable autoScroll
         autoScroll: true,
 
@@ -185,4 +182,7 @@ interact('.Variable')
     .on('doubletap', function (event) {
         if (event.target.tagName.toLowerCase() == 'span')
             updateName(event.target.id);
+    })
+    .on('down', function(event) {
+        event.target.parentElement.appendChild(event.target);
     });
