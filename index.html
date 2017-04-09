@@ -114,6 +114,7 @@
             else if (id.indexOf("class") > -1)
                 tag = classList[tagIndex];
 
+            document.getElementById(id).innerHTML = name;
             document.getElementById(id).title = name;
             tag.setName(name);
         }
