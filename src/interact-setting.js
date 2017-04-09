@@ -125,7 +125,7 @@ interact('.Class')
         if (event.target.tagName.toLowerCase() == 'span')
             updateName(event.target.id);
     })
-    .on('down', function(event) {
+    .on('down', function (event) {
         event.target.parentElement.appendChild(event.target);
     });
 
@@ -155,7 +155,7 @@ interact('.Function')
         if (event.target.tagName.toLowerCase() == 'span')
             updateName(event.target.id);
     })
-    .on('down', function(event) {
+    .on('down', function (event) {
         event.target.parentElement.appendChild(event.target);
     });
 
@@ -183,6 +183,6 @@ interact('.Variable')
         if (event.target.tagName.toLowerCase() == 'span')
             updateName(event.target.id);
     })
-    .on('down', function(event) {
+    .on('down', function (event) {
         event.target.parentElement.appendChild(event.target);
     });

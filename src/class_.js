@@ -26,15 +26,14 @@ class Class {
 
     removeFromClass(obj) {
         if (obj instanceof Function) {
-            var i = this.functionList.findIndex(function(element) {
+            var i = this.functionList.findIndex(function (element) {
                 return element == obj;
             });
             if (i > -1) {
                 this.functionList.splice(i, 1);
             }
-        }
-        else if (obj instanceof Variable) {
-            var i = this.variableList.findIndex(function(element) {
+        } else if (obj instanceof Variable) {
+            var i = this.variableList.findIndex(function (element) {
                 return element == obj;
             });
             if (i > -1) {
