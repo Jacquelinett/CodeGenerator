@@ -1,5 +1,3 @@
-<html>
-
 <head>
     <title> Code Generation </title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -7,6 +5,7 @@
     <script type="text/javascript" src="src/class_.js"></script>
     <script type="text/javascript" src="src/function_.js"></script>
     <script type="text/javascript" src="src/variable_.js"></script>
+    <script type="text/javascript" src="dist/interact.min.js"></script>
 </head>
 
 <body>
@@ -23,33 +22,45 @@
     </div>
 </body>
 
-<script>
+<script type="text/javascript" src="src/interact-setting.js"></script>
+
+<script type="text/javascript">
     //var obj1 = new function_("asdasdsd","comment");
     //console.log(obj1.getName());
 
-    var classCounter = 0;
-    var funcCounter = 0;
-    var varCounter = 0;
+    var classCounter = 1;
+    var funcCounter = 1;
+    var varCounter = 1;
 
     var classList = [];
     var functionList = [];
     var variableList = [];
 
     function addClass() {
-        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>Class " +
-            classCounter + "</div>";
+        /*document.getElementById("demo").innerHTML += 
+            "<div id=\"class-data-" + classCounter + "\" class='Class'>  <div id=\"class-name-" + classCounter + "\" ondoubleclick=\"updateName(\"class-name-" + classCounter + "\")\"> Class " + classCounter + "</div><span id=class-name-" + classCounter + "></span></div>"; */
+        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>" + "<span id=\"class-name-" + classCounter + "\" >Class " + classCounter + "</span></div>";
+        var obj = document.getElementById("class-name-" + classCounter);
+        obj.addEventListener("dblclick", function() {
+            updateName("class-name-" + (classCounter - 1));
+        });
         classCounter++;
     }
-
     function addFunction() {
-        document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter +
-            "\" class='Function'>Function " + funcCounter + "</div>";
+         document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter + "\" class='Function dropable'>" + "<span id=\"function-name-" + classCounter + "\" >Function " + funcCounter + "</span></div>";
+        var obj = document.getElementById("function-name-" + funcCounter);
+        obj.addEventListener("dblclick", function() {
+            updateName("function-name-" + (funcCounter - 1));
+        });
         funcCounter++;
     }
 
     function addVariable() {
-        document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter +
-            "\" class='Variable'>Variable " + varCounter + "</div>";
+        document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter + "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\" >Variable " + varCounter + "</span></div>";
+        var obj = document.getElementById("variable-name-" + varCounter);
+        obj.addEventListener("dblclick", function() {
+            updateName("variable-name-" + (varCounter - 1));
+        });
         varCounter++;
     }
 
@@ -89,6 +100,16 @@
             console.log("}");
         }, this);
     }
+    
+    function updateName(id) {
+        console.log("this is being called");
+        console.log(id);
+        var name = prompt("Please enter name", "Name...");
+    
+        if (name != null) {
+            document.getElementById(id).innerHTML = name;
+        }
+    }
+   
 </script>
 
-</html>
