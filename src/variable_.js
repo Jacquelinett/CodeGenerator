@@ -13,6 +13,9 @@ class Variable {
     getComment() {
         return this.comment;
     }
+    getParent() {
+        return this.parent;
+    }
     setName(name) {
         this.name = name;
     }
@@ -21,6 +24,14 @@ class Variable {
     }
     setComment(comment) {
         this.comment = comment;
+    }
+    setParent(parent) {
+        if (parent != this.parent) {
+            this.parent = parent;
+            if (parent != null) {
+                parent.getVariableList().push(this);
+            }
+        }
     }
 
     //var obj = new Class_("test","test");
