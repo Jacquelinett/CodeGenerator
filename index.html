@@ -25,6 +25,7 @@
     <nav>
 
         <ul>
+<<<<<<< Updated upstream
 
             <p onclick="addClass()"> Class </p>
 
@@ -34,6 +35,12 @@
 
             <p onclick="generateCode()"> Generate Code </p>
 
+=======
+            <p onclick="addClass()" title = "Test comment"> Class </p>
+            <p onclick="addFunction()" title = "Test Comment"> Function </p>
+            <p onclick="addVariable()" title = "Test Comment"> Variable </p>
+            <p onclick="generateCode()" title = "Test Comment"> Generate Code </p>
+>>>>>>> Stashed changes
         </ul>
 
     </nav>
@@ -52,52 +59,23 @@
 
 <script type="text/javascript" src="src/interact-setting.js"></script>
 
-
-
 <script type="text/javascript">
-
-    //var obj1 = new function_("asdasdsd","comment");
-
-    //console.log(obj1.getName());
-
-
-
+    
     var classCounter = 0;
-
     var funcCounter = 0;
-
     var varCounter = 0;
 
-
-
     var classList = [];
-
     var functionList = [];
-
     var variableList = [];
 
-    //var objList = [];
-
-
-
     function addClass() {
-
-        /*document.getElementById("demo").innerHTML += 
-
-            "<div id=\"class-data-" + classCounter + "\" class='Class'>  <div id=\"class-name-" + classCounter + "\" ondoubleclick=\"updateName(\"class-name-" + classCounter + "\")\"> Class " + classCounter + "</div><span id=class-name-" + classCounter + "></span></div>"; */
-
-        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>" +
-
+        document.getElementById("demo").innerHTML += "<div title = 'baldo'" + "id=\"class-data-" + classCounter + "\" class='Class'>" +
             "<span id=\"class-name-" + classCounter + "\">Class" + classCounter + "</span></div>";
-
         var nClass = new Class();
-
         nClass.setName("Class" + classCounter);
-
         classList.push(nClass);
-
         classCounter++;
-
     }
 
 
@@ -106,30 +84,17 @@
 
         document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter +
 
-            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function" +
-
-            funcCounter + "</span></div>";
-
+            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function" +funcCounter + "</span></div>";
         var nFunction = new Function();
-
         nFunction.setName("Function" + funcCounter);
-
         functionList.push(nFunction);
-
         funcCounter++;
-
     }
 
-
-
     function addVariable() {
-
         document.getElementById("demo").innerHTML += "<div id=\"variable-data-" + varCounter +
-
             "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\">Variable" + varCounter +
-
             "</span></div>";
-
         var nVariable = new Variable();
 
         nVariable.setName("Variable" + varCounter);
@@ -223,10 +188,8 @@
 
                 tag = classList[tagIndex];
 
-
-
-            document.getElementById(id).innerHTML = name;
-
+            document.getElementById(id).title = name;
+            console.log(document.getElementById(id).title);
             tag.setName(name);
 
         }
