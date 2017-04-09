@@ -1,36 +1,59 @@
+
 <head>
+
     <title> Code Generation </title>
+
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
+
+
     <script type="text/javascript" src="src/class_.js"></script>
+
     <script type="text/javascript" src="src/function_.js"></script>
+
     <script type="text/javascript" src="src/variable_.js"></script>
+
     <script type="text/javascript" src="dist/interact.min.js"></script>
+    
+    <script type="text/javascript" src="dist/FileSaver.min.js"></script>
 </head>
 
+
+
 <body>
-  
+
     <nav>
-        <icon><img src = "res/icon.png" style="width:30px;height:30px;padding-x:10px"></icon>
+<icon><img src = "res/icon.png" style="width:30px;height:30px;padding-x:10px"></icon>
         <ul>
-            <p onclick="addClass()"> Class </p>
+           
+            
+          <p onclick="addClass()"> Class </p>
             <p onclick="addFunction()"> Function </p>
             <p onclick="addVariable()"> Variable </p>
             <p onclick="generateCode()"> Generate Code </p>
+
+            <p onclick="addClass()" title = "Test comment"> Class </p>
+            <p onclick="addFunction()" title = "Test Comment"> Function </p>
+            <p onclick="addVariable()" title = "Test Comment"> Variable </p>
+            <p onclick="generateCode()" title = "Test Comment"> Generate Code </p>
+
         </ul>
+
     </nav>
 
 
+
+
+
     <div id="demo">
+
     </div>
+
 </body>
-//bg div
 <script type="text/javascript" src="src/interact-setting.js"></script>
 
 <script type="text/javascript">
-    //var obj1 = new function_("asdasdsd","comment");
-    //console.log(obj1.getName());
-
+    
     var classCounter = 0;
     var funcCounter = 0;
     var varCounter = 0;
@@ -39,23 +62,22 @@
     var functionList = [];
     var variableList = [];
 
-    //var objList = [];
-
     function addClass() {
-        /*document.getElementById("demo").innerHTML += 
-            "<div id=\"class-data-" + classCounter + "\" class='Class'>  <div id=\"class-name-" + classCounter + "\" ondoubleclick=\"updateName(\"class-name-" + classCounter + "\")\"> Class " + classCounter + "</div><span id=class-name-" + classCounter + "></span></div>"; */
-        document.getElementById("demo").innerHTML += "<div id=\"class-data-" + classCounter + "\" class='Class'>" +
-            "<span id=\"class-name-" + classCounter + "\">Class " + classCounter + "</span></div>";
+
+        document.getElementById("demo").innerHTML += "<div title = 'baldo'" + "id=\"class-data-" + classCounter + "\" class='Class'>" +
+            "<span id=\"class-name-" + classCounter + "\">Class" + classCounter + "</span></div>";
         var nClass = new Class();
         nClass.setName("Class" + classCounter);
         classList.push(nClass);
         classCounter++;
     }
 
+
+
     function addFunction() {
+
         document.getElementById("demo").innerHTML += "<div id=\"function-data-" + funcCounter +
-            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function " +
-            funcCounter + "</span></div>";
+            "\" class='Function dropable'>" + "<span id=\"function-name-" + funcCounter + "\">Function" +funcCounter + "</span></div>";
         var nFunction = new Function();
         nFunction.setName("Function" + funcCounter);
         functionList.push(nFunction);
@@ -67,50 +89,101 @@
             "\" class='Variable dropable'>" + "<span id=\"variable-name-" + varCounter + "\">Variable " + varCounter +
             "</span></div>";
         var nVariable = new Variable();
+
         nVariable.setName("Variable" + varCounter);
+
         variableList.push(nVariable);
+
         varCounter++;
     }
-
     function generateCode() {
+        var outputTxt = "";
         classList.forEach(function (classObj) {
-            console.log("class " + classObj.getName().replace(/ /g, "_") + " {");
+            console.log("class " + classObj.getName().replace(/ /g, "_") + " {\n");
             console.log(" ");
+            outputTxt += ("class " + classObj.getName().replace(/ /g, "['';L_") + " {\n");
+            outputTxt += (" \n");
+
             classObj.variableList.forEach(function (varObj) {
-                console.log("\t get" + varObj.getName().replace(/ /g, "_") + "() {");
-                console.log("\t\t return this." + varObj.getName().replace(/ /g, "_") + ";");
-                console.log("\t }");
+
+                console.log("\t get" + varObj.getName().replace(/ /g, "_") + "() {\n");
+
+                console.log("\t\t return this." + varObj.getName().replace(/ /g, "_") + ";\n");
+
+                console.log("\t \n}");
+
+                console.log(" \n");
+
+                console.log("\t set" + varObj.getName().replace(/ /g, "_") + "(value) {\n");
+
+                console.log("\t\t this." + varObj.getName().replace(/ /g, "_") + " = value;\n");
+
+                console.log("\t }\n");
+
                 console.log(" ");
-                console.log("\t set" + varObj.getName().replace(/ /g, "_") + "(value) {");
-                console.log("\t\t this." + varObj.getName().replace(/ /g, "_") + " = value;");
-                console.log("\t }");
-                console.log(" ");
+                outputTxt += ("\t get" + varObj.getName().replace(/ /g, "_") + "() {\n");
+                outputTxt += ("\t\t return this." + varObj.getName().replace(/ /g, "_") + ";\n");
+                outputTxt += ("\t }\n");
+                outputTxt += (" \n");
+                outputTxt += ("\t set" + varObj.getName().replace(/ /g, "_") + "(value) {\n");
+                
+                outputTxt += ("\t\t this." + varObj.getName().replace(/ /g, "_") + " = value;\n");
+                outputTxt += ("\t }\n");
+                outputTxt += (" \n");
+                outputTxt
             }, this);
+
             classObj.functionList.forEach(function (funcObj) {
-                console.log("\t " + funcObj.getName().replace(/ /g, "_") + "() {");
-                console.log(" ");
-                console.log("\t }");
-                console.log(" ");
+
+                console.log("\t " + funcObj.getName().replace(/ /g, "_") + "() {\n");
+
+                console.log(" \n");
+
+                console.log("\t }\n");
+
+                console.log(" \n");
+                outputTxt += ("\t " + funcObj.getName().replace(/ /g, "_") + "() {\n");
+                outputTxt += (" \n");
+                outputTxt += ("\t }\n");
+                outputTxt += (" \n");
             }, this);
+
             console.log("}");
+            outputTxt += ("}\n");
         }, this);
+        var blob = new Blob([outputTxt], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "output.txt");
     }
+
+
 
     function updateName(id) {
-        var name = prompt("Please enter name", "");
+        var name = prompt("Please enter name", "Name...");
 
         if (name != null) {
+
             var tagIndex = id.replace( /^\D+/g, '');;
+
             var tag;
+
             if (id.indexOf("function") > -1)
+
                 tag = functionList[tagIndex];
+
             else if (id.indexOf("variable") > -1)
+
                 tag = variableList[tagIndex];
+
             else if (id.indexOf("class") > -1)
+
                 tag = classList[tagIndex];
 
-            document.getElementById(id).innerHTML = name;
+            document.getElementById(id).title = name;
+            console.log(document.getElementById(id).title);
             tag.setName(name);
+
         }
+
     }
+
 </script>
